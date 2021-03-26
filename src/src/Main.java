@@ -1,9 +1,11 @@
 package src;
 
 public class Main {
-
+	
 	public static void main(String[] args) {
-		FileManager.selectFiles();
+		while(true){
+			Menu.showMenu();
+		}
 	}
-
+	
 }
