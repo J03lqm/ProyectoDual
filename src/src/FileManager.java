@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,7 +19,7 @@ import javax.swing.JFileChooser;
 public abstract class FileManager {
 	static Set<File> selectFiles() {
 		JFileChooser fileChooser = new JFileChooser();
-		
+		fileChooser.setMultiSelectionEnabled(true);
 		int response = fileChooser.showOpenDialog(fileChooser);
 		 //Comprobar si se ha pulsado Aceptar
 	    if (response == JFileChooser.APPROVE_OPTION) {
@@ -36,7 +39,7 @@ public abstract class FileManager {
             BufferedWriter out = new BufferedWriter(fw);
             lines.forEach(line -> {
 				try {
-					out.write(line);
+					out.write(line + "\n");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -58,8 +61,6 @@ public abstract class FileManager {
 	        BufferedReader br = new BufferedReader(fr);
 	     
 	        while ((line = br.readLine()) != null) {
-	            if (line.contains("java"))
-	                line = line.replace("java", " ");
 	            lines.add(line);
 	        }
 	        fr.close();
@@ -69,5 +70,31 @@ public abstract class FileManager {
 		}
         return lines;
 	}
+	
+	static void createDirectory(Path path) {
+		try {
+			if(!Files.exists(path))
+			Files.createDirectory(path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
+	static void createFile(Path path, String fileName, ArrayList<String> content) {
+		
+		createDirectory(path);
+
+		File file =new File(path.toString() + "\\\\" + fileName);
+		try {
+			file.createNewFile();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		edit(file, content);
+    }
+	
    
 }
