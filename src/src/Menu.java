@@ -15,6 +15,7 @@ abstract public class Menu {
 				case 0:
 					System.exit(0);
 				case 1:
+					JSONConverter.VStudioTemplate(FileManager.selectFiles());
 					break;
 				default:
 					System.out.println("Opción no válida.");
