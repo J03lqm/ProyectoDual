@@ -30,6 +30,7 @@ abstract public class JSONConverter {
 			FileManager.read(file).forEach(line ->{
 				line = line.replaceAll("\\\\", "\\\\\\\\");
 				line = line.replaceAll("    ","\\\\t");
+				line = line.replaceAll("\t","\\\\t");
 				line = line.replaceAll("\"", "\\\\\"");
 				content.add("        \"" + line + "\",");
 			});
